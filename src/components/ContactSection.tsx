@@ -169,13 +169,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       <span>EasyCatering (Google Play)</span>
                     </a>
                     <a
-                      href={company.contacts.companyProfileUrl || '/company-profile-v7.html'}
+                      href={company.contacts.companyProfileUrl || '/company-profile-v8.html'}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md bg-amber-50 text-amber-900 border border-amber-200 text-xs font-bold hover:bg-amber-100"
                     >
                       <FileText className="w-3 h-3 text-amber-700" />
-                      <span>Company Profile v7.0 (PDF)</span>
+                      <span>Company Profile v8.0 (PDF)</span>
                     </a>
                   </div>
                 </div>
