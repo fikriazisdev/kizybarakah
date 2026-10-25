@@ -68,7 +68,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
         {/* Header Title */}
         <div className="max-w-3xl mb-10 space-y-2">
           <div className="inline-flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-sky-800 bg-sky-100 px-3 py-1 rounded-full border border-sky-200">
-            <span>{isEn ? 'OFFICIAL CATALOG & SERVICES (V7.0)' : 'KATALOG LENGKAP PRODUK & LAYANAN (V7.0)'}</span>
+            <span>{isEn ? 'PRODUCT & SERVICE CATALOG' : 'KATALOG LENGKAP PRODUK & LAYANAN'}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-corporate-navy tracking-tight">
             {isEn

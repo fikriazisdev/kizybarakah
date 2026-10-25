@@ -1,8 +1,9 @@
 import React from 'react';
-import { Mail, Phone, MapPin, ShieldCheck, ExternalLink, FileText, Instagram, Smartphone, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin, ShieldCheck, ExternalLink, FileText, Globe } from 'lucide-react';
 import { CorporateLogo } from './CorporateLogo';
 import { CompanyProfile, LangType } from '../types';
 import { officialAffiliations } from '../data/companyData';
+import { InstagramOriginalLogo, GooglePlayOriginalLogo } from './BrandChannelIcons';
 
 interface FooterProps {
   company: CompanyProfile;
@@ -21,7 +22,7 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenProducts
 }) => {
   const isEn = lang === 'en';
-  const companyProfileHref = company.contacts.companyProfileUrl || '/company-profile-v8.html';
+  const companyProfileHref = company.contacts.companyProfileUrl || '/company-profile.html';
   const stripLogos = officialAffiliations.filter((a) => a.showInStrip !== false);
 
   return (
@@ -77,8 +78,8 @@ export const Footer: React.FC<FooterProps> = ({
                 <FileText className="w-4 h-4" />
                 <span>
                   {isEn
-                    ? 'Open / Download Official Company Profile v8.0 (ID & EN)'
-                    : 'Buka / Unduh Company Profile Resmi v8.0 (ID & EN)'}
+                    ? 'Open / Download Company Profile (PDF)'
+                    : 'Buka / Unduh Company Profile (PDF)'}
                 </span>
               </a>
             </div>
@@ -97,7 +98,7 @@ export const Footer: React.FC<FooterProps> = ({
                   rel="noopener noreferrer"
                   className="hover:text-white transition-colors flex items-center space-x-2"
                 >
-                  <Instagram className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <InstagramOriginalLogo className="w-4 h-4 shrink-0" />
                   <span>
                     {isEn
                       ? '01. Pempek Kizy (@pempek_kizy) — 100% Authentic Tenggiri Fish'
@@ -112,7 +113,7 @@ export const Footer: React.FC<FooterProps> = ({
                   rel="noopener noreferrer"
                   className="hover:text-white transition-colors flex items-center space-x-2"
                 >
-                  <Instagram className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+                  <InstagramOriginalLogo className="w-4 h-4 shrink-0" />
                   <span>
                     {isEn
                       ? '02. PesenSamaSarah Catering & Snack (Up to 1,000 Portions/Day)'
@@ -127,7 +128,7 @@ export const Footer: React.FC<FooterProps> = ({
                   rel="noopener noreferrer"
                   className="hover:text-white transition-colors flex items-center space-x-2"
                 >
-                  <Smartphone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <GooglePlayOriginalLogo className="w-4 h-4 shrink-0" />
                   <span>
                     {isEn
                       ? 'EasyCatering Mobile App (Google Play: id.easycatering.app)'

@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { CompanyProfile, LangType } from '../types';
 import { officialAffiliations } from '../data/companyData';
+import { InstagramOriginalLogo, GooglePlayOriginalLogo } from './BrandChannelIcons';
 
 interface AboutSectionProps {
   company: CompanyProfile;
@@ -45,7 +46,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ company, lang }) => 
           icon: Smartphone,
           accent: 'border-t-sky-600 bg-sky-50/50',
           iconBg: 'bg-sky-700 text-white',
-          badge: 'UP TO 1,000 PORTIONS/DAY',
+          badge: 'CATERING & DIGITAL TECH',
           title: 'Tech-Enabled Catering & Event Hospitality',
           desc: 'Providing reliable buffet catering, meal boxes, and snacks supported by the EasyCatering mobile app on Google Play.'
         },
@@ -83,7 +84,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ company, lang }) => 
           icon: Smartphone,
           accent: 'border-t-sky-600 bg-sky-50/50',
           iconBg: 'bg-sky-700 text-white',
-          badge: 'UP TO 1.000 PORSI/HARI',
+          badge: 'JASA BOGA & TEKNOLOGI',
           title: 'Layanan Boga Berbasis Teknologi',
           desc: 'Melayani katering prasmanan, nasi kotak, dan snack acara tepat waktu dengan dukungan aplikasi mobile EasyCatering.'
         },
@@ -192,32 +193,41 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ company, lang }) => 
                     <div className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">
                       {isEn ? 'OFFICIAL BRAND CHANNELS' : 'KANAL BRAND RESMI'}
                     </div>
-                    <div className="space-y-1.5 text-xs">
+                    <div className="space-y-2 text-xs">
                       <a
                         href="https://www.instagram.com/pempek_kizy"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-between text-emerald-300 hover:text-white font-semibold transition-colors"
+                        className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-white/[0.06] hover:bg-white/[0.12] text-emerald-300 hover:text-white font-bold transition-colors"
                       >
-                        <span>• @pempek_kizy</span>
+                        <span className="flex items-center space-x-2">
+                          <InstagramOriginalLogo className="w-4 h-4 shrink-0" />
+                          <span>@pempek_kizy</span>
+                        </span>
                         <ExternalLink className="w-3.5 h-3.5 opacity-75" />
                       </a>
                       <a
                         href="https://www.instagram.com/pesensamasarah"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-between text-sky-300 hover:text-white font-semibold transition-colors"
+                        className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-white/[0.06] hover:bg-white/[0.12] text-sky-300 hover:text-white font-bold transition-colors"
                       >
-                        <span>• @pesensamasarah</span>
+                        <span className="flex items-center space-x-2">
+                          <InstagramOriginalLogo className="w-4 h-4 shrink-0" />
+                          <span>@pesensamasarah</span>
+                        </span>
                         <ExternalLink className="w-3.5 h-3.5 opacity-75" />
                       </a>
                       <a
                         href="https://play.google.com/store/apps/details?id=id.easycatering.app"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-between text-amber-300 hover:text-white font-semibold transition-colors"
+                        className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-white/[0.06] hover:bg-white/[0.12] text-amber-300 hover:text-white font-bold transition-colors"
                       >
-                        <span>• EasyCatering (Google Play)</span>
+                        <span className="flex items-center space-x-2">
+                          <GooglePlayOriginalLogo className="w-4 h-4 shrink-0" />
+                          <span>EasyCatering (Google Play)</span>
+                        </span>
                         <ExternalLink className="w-3.5 h-3.5 opacity-75" />
                       </a>
                     </div>
@@ -333,11 +343,11 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ company, lang }) => 
                       <span>
                         {showFullLetter
                           ? isEn
-                            ? 'Hide Full Verbatim CEO Letter'
+                            ? 'Collapse Full CEO Message'
                             : 'Ringkas Tampilan Sambutan CEO'
                           : isEn
-                          ? 'Read Complete Verbatim CEO Letter (v8.0 Text)'
-                          : 'Baca Teks Lengkap Sambutan CEO (Versi Utuh v8.0)'}
+                          ? 'Read Complete CEO Message'
+                          : 'Baca Teks Lengkap Sambutan CEO'}
                       </span>
                       {showFullLetter ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </button>
@@ -354,13 +364,13 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ company, lang }) => 
                     </div>
                   </div>
                   <a
-                    href={company.contacts.companyProfileUrl || '/company-profile-v8.html'}
+                    href={company.contacts.companyProfileUrl || '/company-profile.html'}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-emerald-950 hover:bg-emerald-900 text-white font-bold text-xs transition-all shadow-xs"
                   >
                     <FileCheck className="w-4 h-4 text-emerald-400" />
-                    <span>{isEn ? 'Open Bilingual Booklet (v8.0 PDF)' : 'Buka Booklet Company Profile (v8.0 PDF)'}</span>
+                    <span>{isEn ? 'Download Company Profile (PDF)' : 'Buka / Unduh Company Profile (PDF)'}</span>
                   </a>
                 </div>
               </div>
@@ -396,24 +406,24 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ company, lang }) => 
               </p>
             </div>
 
-            {/* Verified Regulatory Compliance Pills */}
-            <div className="pt-5 border-t border-white/15 space-y-3">
+            {/* Verified Regulatory Compliance Pills (Complete Halal BPJPH Number Without Truncation) */}
+            <div className="pt-5 border-t border-white/15 space-y-2.5">
               <div className="flex items-center space-x-2 text-xs font-extrabold tracking-wide text-emerald-400">
-                <ShieldCheck className="w-4 h-4" />
+                <ShieldCheck className="w-4 h-4 shrink-0" />
                 <span>{isEn ? 'VERIFIED NATIONAL LICENSING & HALAL ASSURANCE' : 'LANDASAN PERIZINAN & SERTIFIKASI HALAL RESMI'}</span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
                 <div className="p-2.5 rounded-xl bg-white/[0.06] border border-white/10">
-                  <div className="text-slate-400 font-bold">NIB OSS RI</div>
+                  <div className="text-slate-400 font-bold text-[10px]">NIB OSS RI</div>
                   <div className="text-white font-mono font-extrabold mt-0.5">{company.legalities.nib}</div>
                 </div>
                 <div className="p-2.5 rounded-xl bg-white/[0.06] border border-white/10">
-                  <div className="text-slate-400 font-bold">KEMENPERIN</div>
+                  <div className="text-slate-400 font-bold text-[10px]">STANDAR KEMENPERIN</div>
                   <div className="text-sky-300 font-extrabold mt-0.5">KBLI 10750</div>
                 </div>
-                <div className="p-2.5 rounded-xl bg-white/[0.06] border border-white/10">
-                  <div className="text-slate-400 font-bold">HALAL BPJPH</div>
-                  <div className="text-emerald-300 font-mono font-extrabold mt-0.5">ID32110005...</div>
+                <div className="col-span-2 p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-between">
+                  <span className="text-emerald-200 font-bold text-[10px] uppercase tracking-wider">HALAL BPJPH RI</span>
+                  <span className="text-emerald-300 font-mono font-extrabold text-xs">{company.legalities.halalBpjph}</span>
                 </div>
               </div>
             </div>
@@ -436,9 +446,6 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ company, lang }) => 
                     </h3>
                   </div>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-extrabold">
-                  {isEn ? 'Capacity: Up to 1,000 Portions/Day' : 'Kapasitas: Up to 1.000 Porsi/Hari'}
-                </span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -474,11 +481,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ company, lang }) => 
             <div className="mt-6 pt-4 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600 font-medium">
               <span>
                 {isEn
-                  ? 'Operations Hub: Kawasan Wisma Jaya, Kusuma Utara, East Bekasi'
-                  : 'Pusat Operasional: Kawasan Wisma Jaya, Kusuma Utara, Bekasi Timur'}
-              </span>
-              <span className="font-extrabold text-sky-800">
-                {isEn ? '100% Aligned with Company Profile v8.0' : '100% Selaras Standar Company Profile v8.0'}
+                  ? 'Operations Hub: Kawasan Wisma Jaya, Kusuma Utara, East Bekasi, West Java'
+                  : 'Pusat Operasional: Kawasan Wisma Jaya, Kusuma Utara, Bekasi Timur, Jawa Barat'}
               </span>
             </div>
           </div>
@@ -551,9 +555,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ company, lang }) => 
           </div>
         </div>
 
-        {/* 9-Card Official SME Empowerment, Entrepreneur Community & Regulatory Standards (Page 9 of v8.0) */}
+        {/* Official SME Empowerment, Entrepreneur Community & Regulatory Standards */}
         <div className="rounded-3xl bg-white border-2 border-slate-200/90 p-6 sm:p-8 shadow-md">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
+          <div className="mb-6 pb-4 border-b border-slate-200">
             <div className="space-y-1">
               <div className="text-[11px] font-extrabold uppercase tracking-widest text-emerald-700">
                 {isEn
@@ -562,23 +566,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ company, lang }) => 
               </div>
               <h3 className="text-xl sm:text-2xl font-black text-corporate-navy">
                 {isEn
-                  ? '9 Verified Institutional & Entrepreneur Ecosystem Affiliations'
-                  : '9 Afiliasi Resmi Kementerian, Sertifikasi Mutu & Komunitas Wirausaha'}
+                  ? 'Official Ministry Licensing, Quality Certifications & Entrepreneur Networks'
+                  : 'Afiliasi Resmi Kementerian, Sertifikasi Mutu & Komunitas Wirausaha'}
               </h3>
-            </div>
-            <div className="flex flex-wrap gap-2 text-xs font-extrabold">
-              <span className="px-3 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200">
-                UMKM Naik Kelas
-              </span>
-              <span className="px-3 py-1 rounded-lg bg-sky-50 text-sky-800 border border-sky-200">
-                Dekranasda Kota Bekasi
-              </span>
-              <span className="px-3 py-1 rounded-lg bg-amber-50 text-amber-900 border border-amber-200">
-                Komunitas TDA
-              </span>
-              <span className="px-3 py-1 rounded-lg bg-slate-100 text-slate-800 border border-slate-300">
-                LinkUMKM
-              </span>
             </div>
           </div>
 

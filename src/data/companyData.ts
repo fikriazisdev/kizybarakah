@@ -183,7 +183,7 @@ export const initialCompanyProfile: CompanyProfile = {
     websiteDomain: "kizybarakah.id",
     playStoreUrl: "https://play.google.com/store/apps/details?id=id.easycatering.app",
     easyCateringWebUrl: "https://easycatering-web.onrender.com",
-    companyProfileUrl: "/company-profile-v8.html"
+    companyProfileUrl: "/company-profile.html"
   }
 };
 

@@ -23,19 +23,19 @@ export const App: React.FC = () => {
     return (savedLang === 'en' || savedLang === 'id') ? savedLang : 'id';
   });
 
-  // LocalStorage-backed state migrated to v8_2 keys so latest v8.0 data loads immediately
+  // LocalStorage-backed state migrated to v8_3 keys so latest data loads immediately
   const [company, setCompany] = useState<CompanyProfile>(() => {
-    const saved = localStorage.getItem('kizy_company_profile_v8_2');
+    const saved = localStorage.getItem('kizy_company_profile_v8_3');
     return saved ? JSON.parse(saved) : initialCompanyProfile;
   });
 
   const [products, setProducts] = useState<ProductItem[]>(() => {
-    const saved = localStorage.getItem('kizy_products_v8_2');
+    const saved = localStorage.getItem('kizy_products_v8_3');
     return saved ? JSON.parse(saved) : initialProducts;
   });
 
   const [leads, setLeads] = useState<InquiryLead[]>(() => {
-    const saved = localStorage.getItem('kizy_leads_v8_2');
+    const saved = localStorage.getItem('kizy_leads_v8_3');
     return saved ? JSON.parse(saved) : initialLeads;
   });
 
@@ -53,15 +53,15 @@ export const App: React.FC = () => {
   }, [lang]);
 
   useEffect(() => {
-    localStorage.setItem('kizy_company_profile_v8_2', JSON.stringify(company));
+    localStorage.setItem('kizy_company_profile_v8_3', JSON.stringify(company));
   }, [company]);
 
   useEffect(() => {
-    localStorage.setItem('kizy_products_v8_2', JSON.stringify(products));
+    localStorage.setItem('kizy_products_v8_3', JSON.stringify(products));
   }, [products]);
 
   useEffect(() => {
-    localStorage.setItem('kizy_leads_v8_2', JSON.stringify(leads));
+    localStorage.setItem('kizy_leads_v8_3', JSON.stringify(leads));
   }, [leads]);
 
   // Handle URL hash routing (#admin, #produk, #en, #id)
@@ -125,10 +125,10 @@ export const App: React.FC = () => {
     setCompany(initialCompanyProfile);
     setProducts(initialProducts);
     setLeads(initialLeads);
-    localStorage.removeItem('kizy_company_profile_v8_2');
-    localStorage.removeItem('kizy_products_v8_2');
-    localStorage.removeItem('kizy_leads_v8_2');
-    alert(lang === 'en' ? 'Data successfully reset to v8.0 defaults!' : 'Data berhasil direset ke pengaturan awal v8.0!');
+    localStorage.removeItem('kizy_company_profile_v8_3');
+    localStorage.removeItem('kizy_products_v8_3');
+    localStorage.removeItem('kizy_leads_v8_3');
+    alert(lang === 'en' ? 'Data successfully reset to defaults!' : 'Data berhasil direset ke pengaturan awal!');
   };
 
   // Selecting a product from catalog for inquiry
@@ -253,11 +253,11 @@ export const App: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-6 right-6 z-40 px-4 py-3 bg-corporate-navy hover:bg-slate-800 text-white rounded-full shadow-2xl border border-slate-700 flex items-center space-x-2.5 transition-all hover:scale-105"
-            title={lang === 'en' ? 'Official Corporate WhatsApp' : 'Chat WhatsApp Resmi'}
+            title={lang === 'en' ? 'Chat via WhatsApp' : 'Hubungi via WhatsApp'}
           >
             <MessageCircle className="w-5 h-5 text-emerald-400" />
             <span className="text-xs font-bold hidden sm:inline">
-              {lang === 'en' ? 'Official WhatsApp' : 'WhatsApp Resmi'}
+              {lang === 'en' ? 'Chat WhatsApp' : 'Chat WhatsApp'}
             </span>
           </a>
         </>

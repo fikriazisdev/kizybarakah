@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, Send, CheckCircle2, Clock, Globe, Instagram, Smartphone, FileText } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, Clock, Globe, FileText } from 'lucide-react';
 import { CompanyProfile, InquiryLead, PillarType, LangType } from '../types';
+import { InstagramOriginalLogo, GooglePlayOriginalLogo } from './BrandChannelIcons';
 
 interface ContactSectionProps {
   company: CompanyProfile;
@@ -106,7 +107,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 <Phone className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
                 <div className="text-xs sm:text-sm">
                   <div className="font-bold text-corporate-navy">
-                    {isEn ? 'Business Phone & Official WhatsApp' : 'Telepon Bisnis & WhatsApp Resmi'}
+                    {isEn ? 'Business Phone & WhatsApp' : 'Telepon Bisnis & WhatsApp'}
                   </div>
                   <a
                     href={`https://wa.me/${company.contacts.whatsapp.replace(/[^0-9]/g, '')}`}
@@ -138,44 +139,44 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 <Globe className="w-5 h-5 text-corporate-navy shrink-0 mt-0.5" />
                 <div className="text-xs sm:text-sm space-y-1">
                   <div className="font-bold text-corporate-navy">
-                    {isEn ? 'Official Digital Ecosystem & Channels' : 'Ekosistem Digital & Kanal Resmi'}
+                    {isEn ? 'Digital Ecosystem & Channels' : 'Ekosistem Digital & Kanal Brand'}
                   </div>
                   <div className="flex flex-wrap gap-2 pt-1">
                     <a
                       href="https://www.instagram.com/pempek_kizy"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold hover:bg-emerald-100"
+                      className="inline-flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-bold hover:bg-emerald-100 transition-colors"
                     >
-                      <Instagram className="w-3 h-3" />
+                      <InstagramOriginalLogo className="w-3.5 h-3.5 shrink-0" />
                       <span>@pempek_kizy</span>
                     </a>
                     <a
                       href="https://www.instagram.com/pesensamasarah"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md bg-sky-50 text-sky-800 border border-sky-200 text-xs font-bold hover:bg-sky-100"
+                      className="inline-flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-sky-50 text-sky-900 border border-sky-200 text-xs font-bold hover:bg-sky-100 transition-colors"
                     >
-                      <Instagram className="w-3 h-3" />
+                      <InstagramOriginalLogo className="w-3.5 h-3.5 shrink-0" />
                       <span>@pesensamasarah</span>
                     </a>
                     <a
                       href="https://play.google.com/store/apps/details?id=id.easycatering.app"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md bg-slate-100 text-slate-800 border border-slate-200 text-xs font-bold hover:bg-slate-200"
+                      className="inline-flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-slate-100 text-slate-900 border border-slate-200 text-xs font-bold hover:bg-slate-200 transition-colors"
                     >
-                      <Smartphone className="w-3 h-3 text-sky-700" />
+                      <GooglePlayOriginalLogo className="w-3.5 h-3.5 shrink-0" />
                       <span>EasyCatering (Google Play)</span>
                     </a>
                     <a
-                      href={company.contacts.companyProfileUrl || '/company-profile-v8.html'}
+                      href={company.contacts.companyProfileUrl || '/company-profile.html'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md bg-amber-50 text-amber-900 border border-amber-200 text-xs font-bold hover:bg-amber-100"
+                      className="inline-flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-amber-50 text-amber-900 border border-amber-200 text-xs font-bold hover:bg-amber-100 transition-colors"
                     >
-                      <FileText className="w-3 h-3 text-amber-700" />
-                      <span>Company Profile v8.0 (PDF)</span>
+                      <FileText className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+                      <span>Company Profile (PDF)</span>
                     </a>
                   </div>
                 </div>

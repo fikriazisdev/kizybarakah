@@ -6,13 +6,17 @@ import {
   ArrowRight,
   ShieldCheck,
   Check,
-  Instagram,
-  Smartphone,
-  ExternalLink,
   Globe,
-  Sparkles
+  Sparkles,
+  ExternalLink
 } from 'lucide-react';
 import { ProductItem, LangType } from '../types';
+import {
+  InstagramOriginalLogo,
+  GooglePlayOriginalLogo,
+  InstagramSnapshotCard,
+  PlayStoreSnapshotCard
+} from './BrandChannelIcons';
 
 interface DivisionsSectionProps {
   products: ProductItem[];
@@ -116,7 +120,7 @@ export const DivisionsSection: React.FC<DivisionsSectionProps> = ({
                   )}
                 </p>
 
-                {/* Export Track Record Dark Box (100% Matching Page 6 of v8.0 — Zero Over-Claim) */}
+                {/* Export Track Record Dark Box (Zero Over-Claim) */}
                 <div className="p-4 rounded-2xl bg-gradient-to-r from-[#062822] via-corporate-navy to-sky-950 text-white border border-emerald-500/30 grid grid-cols-1 sm:grid-cols-12 gap-3.5 items-center shadow-sm">
                   <div className="sm:col-span-5 space-y-1">
                     <div className="flex items-center space-x-1 text-[9.5px] font-extrabold uppercase tracking-wider text-emerald-400">
@@ -171,7 +175,7 @@ export const DivisionsSection: React.FC<DivisionsSectionProps> = ({
               </div>
             </div>
 
-            {/* Card Footer */}
+            {/* Card Footer: Catalog Preview + Interactive Instagram Profile Snapshot Card */}
             <div className="px-6 sm:px-7 pb-6 pt-2 space-y-3">
               {highlightedSnack && (
                 <div className="p-3.5 rounded-2xl bg-white border border-slate-200 flex items-center justify-between shadow-2xs">
@@ -194,21 +198,21 @@ export const DivisionsSection: React.FC<DivisionsSectionProps> = ({
                 </div>
               )}
 
-              <div className="flex items-center justify-between pt-1">
-                <a
-                  href="https://www.instagram.com/pempek_kizy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-extrabold transition-all shadow-xs"
-                >
-                  <Instagram className="w-3.5 h-3.5" />
-                  <span>Instagram @pempek_kizy</span>
-                  <ExternalLink className="w-3 h-3 opacity-80" />
-                </a>
-                <span className="text-[11px] font-mono font-bold text-slate-500">
-                  Halal: ID32110005461900623
-                </span>
-              </div>
+              {/* Interactive Instagram Profile Snapshot Trigger Card (@pempek_kizy) */}
+              <InstagramSnapshotCard
+                handle="@pempek_kizy"
+                profileTitle={isEn ? 'Pempek Kizy · 100% Authentic Tenggiri' : 'Pempek Kizy · 100% Ikan Tenggiri Asli'}
+                subtitle={isEn ? 'Halal BPJPH RI · Exported to Singapore 🇸🇬' : 'Halal BPJPH RI · Ekspor Rutin Singapura 🇸🇬'}
+                href="https://www.instagram.com/pempek_kizy"
+                avatarUrl="/assets/pempekkizy_logo.jpg"
+                previewImages={[
+                  '/assets/pempek_kapal_selam.jpg',
+                  '/assets/pempek_tekwan.jpg',
+                  '/assets/pempek_campur_vacuum.jpg'
+                ]}
+                ctaLabel={isEn ? 'Visit Instagram' : 'Buka Instagram'}
+                accentColor="emerald"
+              />
             </div>
           </div>
 
@@ -261,7 +265,7 @@ export const DivisionsSection: React.FC<DivisionsSectionProps> = ({
                   )}
                 </p>
 
-                {/* Kitchen Scale & EasyCatering Tech Dark Box (Balances Card 01 Export Box) */}
+                {/* Kitchen Scale & EasyCatering Tech Dark Box */}
                 <div className="p-4 rounded-2xl bg-gradient-to-r from-[#060D1A] via-corporate-navy to-sky-900 text-white border border-sky-500/30 grid grid-cols-1 sm:grid-cols-12 gap-3.5 items-center shadow-sm">
                   <div className="sm:col-span-5 space-y-1">
                     <div className="text-[9.5px] font-extrabold uppercase tracking-wider text-sky-300">
@@ -278,8 +282,9 @@ export const DivisionsSection: React.FC<DivisionsSectionProps> = ({
                       {isEn ? 'DIGITAL ORDERING INNOVATION' : 'DUKUNGAN INOVASI TEKNOLOGI'}
                     </div>
                     <div className="flex flex-wrap items-center gap-1.5">
-                      <span className="px-2.5 py-0.5 rounded bg-white/15 border border-white/25 text-white text-[11px] font-bold">
-                        📱 EasyCatering (Google Play)
+                      <span className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded bg-white/15 border border-white/25 text-white text-[11px] font-bold">
+                        <GooglePlayOriginalLogo className="w-3.5 h-3.5 shrink-0" />
+                        <span>EasyCatering (Google Play)</span>
                       </span>
                       <span className="px-2 py-0.5 rounded bg-emerald-500/25 border border-emerald-400/40 text-emerald-200 text-[11px] font-mono font-bold">
                         id.easycatering.app
@@ -310,8 +315,8 @@ export const DivisionsSection: React.FC<DivisionsSectionProps> = ({
               </div>
             </div>
 
-            {/* Card Footer */}
-            <div className="px-6 sm:px-7 pb-6 pt-2 space-y-3">
+            {/* Card Footer: Simulator + Instagram Profile Snapshot + Google Play Store App Snapshot */}
+            <div className="px-6 sm:px-7 pb-6 pt-2 space-y-2.5">
               {highlightedCatering && (
                 <div className="p-3.5 rounded-2xl bg-white border border-slate-200 flex items-center justify-between shadow-2xs">
                   <div className="flex items-center space-x-3">
@@ -333,45 +338,47 @@ export const DivisionsSection: React.FC<DivisionsSectionProps> = ({
                 </div>
               )}
 
-              <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
-                <div className="flex flex-wrap gap-2">
-                  <a
-                    href="https://www.instagram.com/pesensamasarah"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-sky-700 hover:bg-sky-800 text-white text-xs font-extrabold transition-all shadow-xs"
-                  >
-                    <Instagram className="w-3.5 h-3.5" />
-                    <span>@pesensamasarah</span>
-                    <ExternalLink className="w-3 h-3 opacity-80" />
-                  </a>
-                  <a
-                    href="https://play.google.com/store/apps/details?id=id.easycatering.app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-corporate-navy hover:bg-slate-800 text-white text-xs font-extrabold transition-all shadow-xs"
-                  >
-                    <Smartphone className="w-3.5 h-3.5 text-sky-400" />
-                    <span>EasyCatering App</span>
-                    <ExternalLink className="w-3 h-3 opacity-80" />
-                  </a>
-                </div>
-              </div>
+              {/* Interactive Instagram Profile Snapshot Card (@pesensamasarah) */}
+              <InstagramSnapshotCard
+                handle="@pesensamasarah"
+                profileTitle="PesenSamaSarah Catering & Snack"
+                subtitle={isEn ? 'Buffet, Meal Box, Dimsum & Kue Tampah' : 'Prasmanan VIP, Nasi Kotak, Dimsum & Kue Tampah'}
+                href="https://www.instagram.com/pesensamasarah"
+                avatarUrl="/assets/pesensamasarah_logo.jpg"
+                previewImages={[
+                  '/assets/snackbox_enhanced.jpg',
+                  '/assets/dimsum_enhanced.jpg',
+                  'https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=400&q=80'
+                ]}
+                ctaLabel={isEn ? 'Visit Instagram' : 'Buka Instagram'}
+                accentColor="sky"
+              />
+
+              {/* Interactive Google Play Store App Snapshot Card (EasyCatering) */}
+              <PlayStoreSnapshotCard
+                appName="EasyCatering"
+                packageId="id.easycatering.app"
+                subtitle={isEn ? 'Digital Catering Menu & Order App' : 'Aplikasi Pemesanan Katering & Snack'}
+                href="https://play.google.com/store/apps/details?id=id.easycatering.app"
+                previewImages={[
+                  '/assets/easycatering_screen_1.jpg',
+                  '/assets/easycatering_screen_2.jpg',
+                  '/assets/easycatering_screen_3.jpg'
+                ]}
+                ctaLabel={isEn ? 'Google Play' : 'Google Play'}
+              />
             </div>
           </div>
 
         </div>
 
-        {/* Section B Label */}
-        <div className="flex items-center justify-between pb-3 mb-6 border-b-2 border-amber-500/70">
+        {/* Section B Label (Removed "@pesensamasarah · 100% Authentic Selection" per Point 4) */}
+        <div className="pb-3 mb-6 border-b-2 border-amber-500/70">
           <div className="text-xs font-extrabold uppercase tracking-widest text-amber-800">
             {isEn
               ? 'B. OTHER BUSINESS LINE (COMPLEMENTARY RETAIL DIVISION)'
               : 'B. LINI BISNIS LAINNYA / PENDUKUNG (COMPLEMENTARY RETAIL LINE)'}
           </div>
-          <span className="hidden sm:inline-block text-xs font-bold text-slate-500">
-            @pesensamasarah · 100% Authentic Selection
-          </span>
         </div>
 
         {/* COMPLEMENTARY LINE: PESENSAMASARAH CURATED RETAIL (@pesensamasarah) */}
@@ -436,8 +443,9 @@ export const DivisionsSection: React.FC<DivisionsSectionProps> = ({
                   rel="noopener noreferrer"
                   className="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 font-extrabold text-xs sm:text-sm transition-all flex items-center space-x-2"
                 >
-                  <Instagram className="w-4 h-4 text-amber-400" />
+                  <InstagramOriginalLogo className="w-4 h-4 shrink-0" />
                   <span>@pesensamasarah</span>
+                  <ExternalLink className="w-3.5 h-3.5 opacity-80" />
                 </a>
               </div>
             </div>

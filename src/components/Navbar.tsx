@@ -44,7 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const companyProfileHref = company.contacts.companyProfileUrl || '/company-profile-v8.html';
+  const companyProfileHref = company.contacts.companyProfileUrl || '/company-profile.html';
 
   return (
     <header className="sticky top-0 z-50 shadow-sm">
@@ -79,10 +79,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-md bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 font-bold transition-all whitespace-nowrap"
-              title={isEn ? 'Open / Download Official Bilingual Company Profile v8.0 (PDF)' : 'Buka / Unduh Company Profile Resmi v8.0 (PDF)'}
+              title={isEn ? 'Open / Download Official Company Profile (PDF)' : 'Buka / Unduh Company Profile (PDF)'}
             >
               <FileText className="w-3 h-3 text-emerald-400" />
-              <span>{isEn ? 'Company Profile v8.0 (PDF)' : 'Company Profile v8.0 (PDF)'}</span>
+              <span>{isEn ? 'Company Profile (PDF)' : 'Company Profile (PDF)'}</span>
             </a>
 
             {/* Bilingual Toggle */}
@@ -250,7 +250,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="flex items-center justify-center space-x-2 w-full text-center py-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 font-extrabold text-xs uppercase tracking-wider"
             >
               <FileText className="w-4 h-4 text-emerald-700" />
-              <span>{isEn ? 'Company Profile v8.0 (PDF)' : 'Company Profile v8.0 (PDF)'}</span>
+              <span>{isEn ? 'Company Profile (PDF)' : 'Company Profile (PDF)'}</span>
             </a>
             <a
               href={`https://wa.me/${company.contacts.whatsapp.replace(/[^0-9]/g, '')}`}
