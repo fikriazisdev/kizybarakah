@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, MessageCircle, CheckCircle2, Clock } from 'lucide-react';
-import { CompanyProfile, InquiryLead, PillarType } from '../types';
+import React, { useState, useEffect } from 'react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, Clock, Globe, Instagram, Smartphone, FileText } from 'lucide-react';
+import { CompanyProfile, InquiryLead, PillarType, LangType } from '../types';
 
 interface ContactSectionProps {
   company: CompanyProfile;
+  lang: LangType;
   prefilledPillar?: PillarType;
   prefilledService?: string;
   onSubmitInquiry: (leadData: Omit<InquiryLead, 'id' | 'createdAt' | 'status'>) => void;
@@ -11,10 +12,12 @@ interface ContactSectionProps {
 
 export const ContactSection: React.FC<ContactSectionProps> = ({
   company,
+  lang,
   prefilledPillar = 'culinary',
   prefilledService = '',
   onSubmitInquiry
 }) => {
+  const isEn = lang === 'en';
   const [fullName, setFullName] = useState('');
   const [companyOrOrg, setCompanyOrOrg] = useState('');
   const [email, setEmail] = useState('');
@@ -26,10 +29,19 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
+  useEffect(() => {
+    if (prefilledPillar && prefilledPillar !== 'all') {
+      setPillarInterest(prefilledPillar);
+    }
+    if (prefilledService) {
+      setServiceCategory(prefilledService);
+    }
+  }, [prefilledPillar, prefilledService]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName || !phoneWhatsapp || !message) {
-      alert('Mohon lengkapi Nama, Nomor WhatsApp, dan Detail kebutuhan.');
+      alert(isEn ? 'Please complete your Name, WhatsApp Number, and Inquiry Details.' : 'Mohon lengkapi Nama, Nomor WhatsApp, dan Detail kebutuhan.');
       return;
     }
 
@@ -39,7 +51,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
       email,
       phoneWhatsapp,
       pillarInterest,
-      serviceCategory: serviceCategory || 'Umum',
+      serviceCategory: serviceCategory || (isEn ? 'General Partnership' : 'Umum'),
       message
     });
 
@@ -60,34 +72,62 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* Left Column: Office Contacts & Headquarters (5 cols) */}
-          <div className="lg:col-span-5 space-y-8">
+          {/* Left Column: Office Contacts, Website Domain & Digital Ecosystem (5 cols) */}
+          <div className="lg:col-span-5 space-y-6">
             <div className="space-y-3">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-700 bg-white px-3.5 py-1 rounded-full border border-slate-200">
-                HUBUNGI KAMI
+                {isEn ? 'CONNECT WITH US' : 'HUBUNGI KAMI'}
               </span>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-corporate-navy tracking-tight">
-                Konsultasikan Kebutuhan Bersama Tim Korporat
+                {isEn
+                  ? 'Connect With Our Headquarters & Business Ecosystem'
+                  : 'Hubungi Kantor Pusat & Ekosistem Bisnis Kami'}
               </h2>
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                Representatif PT Kizy Barakah Orbis siap merumuskan proposal penawaran katering acara, kerja sama distribusi pasokan pangan, maupun kebutuhan konsultasi bisnis lainnya.
+                {isEn
+                  ? 'For corporate catering & event snack consultations, Pempek Kizy B2B wholesale/reseller partnerships, or PesenSamaSarah curated retail & executive hampers, please reach us through our official channels:'
+                  : 'Untuk konsultasi layanan katering & snack acara, kemitraan grosir/reseller Pempek Kizy, maupun pemesanan ritel & hampers PesenSamaSarah, silakan hubungi kami melalui saluran resmi di bawah ini:'}
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               <div className="p-4 rounded-xl bg-white border border-corporate-border flex items-start space-x-3.5 shadow-xs">
                 <MapPin className="w-5 h-5 text-sky-700 shrink-0 mt-0.5" />
                 <div className="text-xs sm:text-sm">
-                  <div className="font-bold text-corporate-navy">Alamat Kantor Resmi</div>
+                  <div className="font-bold text-corporate-navy">
+                    {isEn ? 'Headquarters & Operations Hub' : 'Lokasi Kantor Pusat & Operasional'}
+                  </div>
                   <div className="text-slate-700 mt-0.5 font-medium">{company.contacts.address}</div>
                   <div className="text-slate-500 font-medium">{company.contacts.city}</div>
                 </div>
               </div>
 
               <div className="p-4 rounded-xl bg-white border border-corporate-border flex items-start space-x-3.5 shadow-xs">
-                <Mail className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
+                <Phone className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
                 <div className="text-xs sm:text-sm">
-                  <div className="font-bold text-corporate-navy">Email Korespondensi Resmi</div>
+                  <div className="font-bold text-corporate-navy">
+                    {isEn ? 'Business Phone & Official WhatsApp' : 'Telepon Bisnis & WhatsApp Resmi'}
+                  </div>
+                  <a
+                    href={`https://wa.me/${company.contacts.whatsapp.replace(/[^0-9]/g, '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-emerald-800 font-extrabold hover:underline mt-0.5 block"
+                  >
+                    {company.contacts.phone} (WhatsApp)
+                  </a>
+                  <div className="text-xs text-slate-500 mt-0.5">
+                    {isEn ? 'Executive Leadership: Depati Sarah (Founder & CEO)' : 'Pimpinan Eksekutif: Depati Sarah (Founder & CEO)'}
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-xl bg-white border border-corporate-border flex items-start space-x-3.5 shadow-xs">
+                <Mail className="w-5 h-5 text-sky-700 shrink-0 mt-0.5" />
+                <div className="text-xs sm:text-sm">
+                  <div className="font-bold text-corporate-navy">
+                    {isEn ? 'Corporate & Partnership Email' : 'Email Korporat & Kemitraan'}
+                  </div>
                   <a href={`mailto:${company.contacts.email}`} className="text-sky-800 font-semibold hover:underline">
                     {company.contacts.email}
                   </a>
@@ -95,20 +135,61 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               </div>
 
               <div className="p-4 rounded-xl bg-white border border-corporate-border flex items-start space-x-3.5 shadow-xs">
-                <Phone className="w-5 h-5 text-corporate-navy shrink-0 mt-0.5" />
-                <div className="text-xs sm:text-sm">
-                  <div className="font-bold text-corporate-navy">Layanan WhatsApp &amp; Hotline</div>
-                  <div className="text-slate-700 font-medium">{company.contacts.phone}</div>
-                  <div className="text-emerald-800 font-bold mt-0.5">WhatsApp: {company.contacts.whatsapp}</div>
+                <Globe className="w-5 h-5 text-corporate-navy shrink-0 mt-0.5" />
+                <div className="text-xs sm:text-sm space-y-1">
+                  <div className="font-bold text-corporate-navy">
+                    {isEn ? 'Official Digital Ecosystem & Channels' : 'Ekosistem Digital & Kanal Resmi'}
+                  </div>
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    <a
+                      href="https://www.instagram.com/pempek_kizy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold hover:bg-emerald-100"
+                    >
+                      <Instagram className="w-3 h-3" />
+                      <span>@pempek_kizy</span>
+                    </a>
+                    <a
+                      href="https://www.instagram.com/pesensamasarah"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md bg-sky-50 text-sky-800 border border-sky-200 text-xs font-bold hover:bg-sky-100"
+                    >
+                      <Instagram className="w-3 h-3" />
+                      <span>@pesensamasarah</span>
+                    </a>
+                    <a
+                      href="https://play.google.com/store/apps/details?id=id.easycatering.app"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md bg-slate-100 text-slate-800 border border-slate-200 text-xs font-bold hover:bg-slate-200"
+                    >
+                      <Smartphone className="w-3 h-3 text-sky-700" />
+                      <span>EasyCatering (Google Play)</span>
+                    </a>
+                    <a
+                      href={company.contacts.companyProfileUrl || '/company-profile-v7.html'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md bg-amber-50 text-amber-900 border border-amber-200 text-xs font-bold hover:bg-amber-100"
+                    >
+                      <FileText className="w-3 h-3 text-amber-700" />
+                      <span>Company Profile v7.0 (PDF)</span>
+                    </a>
+                  </div>
                 </div>
               </div>
 
               <div className="p-4 rounded-xl bg-white border border-corporate-border flex items-start space-x-3.5 shadow-xs">
                 <Clock className="w-5 h-5 text-slate-500 shrink-0 mt-0.5" />
                 <div className="text-xs sm:text-sm">
-                  <div className="font-bold text-corporate-navy">Waktu Operasional &amp; Konsultasi Bisnis</div>
-                  <div className="text-slate-700 font-medium">Senin – Sabtu: 08.00 – 18.00 WIB</div>
-                  <div className="text-xs text-slate-500 mt-0.5">Konsultasi penawaran resmi dilayani secara profesional</div>
+                  <div className="font-bold text-corporate-navy">
+                    {isEn ? 'Business Operating Hours' : 'Waktu Operasional & Konsultasi Bisnis'}
+                  </div>
+                  <div className="text-slate-700 font-medium">
+                    {isEn ? 'Monday – Saturday: 08:00 – 18:00 WIB (GMT+7)' : 'Senin – Sabtu: 08.00 – 18.00 WIB'}
+                  </div>
                 </div>
               </div>
             </div>
@@ -117,9 +198,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
           {/* Right Column: Direct B2B Inquiry Form (7 cols) */}
           <div className="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-corporate-border shadow-xs">
-            <h3 className="text-xl font-bold text-corporate-navy mb-1.5">Formulir Pengajuan &amp; Permintaan Proposal</h3>
+            <h3 className="text-xl font-bold text-corporate-navy mb-1.5">
+              {isEn ? 'Corporate Inquiry & Partnership Proposal Form' : 'Formulir Pengajuan & Permintaan Proposal Resmi'}
+            </h3>
             <p className="text-xs text-slate-500 mb-6">
-              Silakan lengkapi formulir di bawah. Tim representatif kami akan menindaklanjuti dalam waktu maksimal 2 jam kerja.
+              {isEn
+                ? 'Complete the form below. Our corporate representative team will respond promptly during business hours.'
+                : 'Silakan lengkapi formulir di bawah. Tim representatif kami akan segera menindaklanjuti pengajuan Anda.'}
             </p>
 
             {submitted ? (
@@ -127,9 +212,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 <div className="w-12 h-12 rounded-full bg-emerald-700 text-white flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
-                <h4 className="text-lg font-bold text-emerald-900">Pengajuan Berhasil Diterima!</h4>
+                <h4 className="text-lg font-bold text-emerald-900">
+                  {isEn ? 'Inquiry Successfully Recorded!' : 'Pengajuan Berhasil Diterima!'}
+                </h4>
                 <p className="text-xs sm:text-sm text-emerald-800 leading-relaxed max-w-md mx-auto">
-                  Terima kasih, Bapak/Ibu <strong>{fullName}</strong>. Rincian pengajuan Anda telah tersimpan di sistem manajemen kami dan akan segera ditindaklanjuti.
+                  {isEn ? (
+                    <>Thank you, <strong>{fullName}</strong>. Your inquiry has been logged in our system and our team will follow up shortly.</>
+                  ) : (
+                    <>Terima kasih, Bapak/Ibu <strong>{fullName}</strong>. Rincian pengajuan Anda telah tersimpan di sistem manajemen kami dan akan segera ditindaklanjuti.</>
+                  )}
                 </p>
               </div>
             ) : (
@@ -138,27 +229,27 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-corporate-navy mb-1.5">
-                      Nama Lengkap *
+                      {isEn ? 'Full Name *' : 'Nama Lengkap *'}
                     </label>
                     <input
                       type="text"
                       required
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      placeholder="Nama Anda"
+                      placeholder={isEn ? 'Your Full Name' : 'Nama Anda'}
                       className="w-full px-3.5 py-2.5 bg-slate-50 border border-corporate-border rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-700"
                     />
                   </div>
 
                   <div>
                     <label className="block text-xs font-bold text-corporate-navy mb-1.5">
-                      Perusahaan / Instansi (Opsional)
+                      {isEn ? 'Company / Institution (Optional)' : 'Perusahaan / Instansi (Opsional)'}
                     </label>
                     <input
                       type="text"
                       value={companyOrOrg}
                       onChange={(e) => setCompanyOrOrg(e.target.value)}
-                      placeholder="Nama Instansi"
+                      placeholder={isEn ? 'Company or Organization Name' : 'Nama Instansi / Perusahaan'}
                       className="w-full px-3.5 py-2.5 bg-slate-50 border border-corporate-border rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-700"
                     />
                   </div>
@@ -167,27 +258,27 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-corporate-navy mb-1.5">
-                      Nomor WhatsApp Aktif *
+                      {isEn ? 'Active WhatsApp / Phone Number *' : 'Nomor WhatsApp Aktif *'}
                     </label>
                     <input
                       type="tel"
                       required
                       value={phoneWhatsapp}
                       onChange={(e) => setPhoneWhatsapp(e.target.value)}
-                      placeholder="08xxxxxxxxxx"
+                      placeholder="+62 / 08xxxxxxxxxx"
                       className="w-full px-3.5 py-2.5 bg-slate-50 border border-corporate-border rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-700"
                     />
                   </div>
 
                   <div>
                     <label className="block text-xs font-bold text-corporate-navy mb-1.5">
-                      Alamat Email
+                      {isEn ? 'Business Email Address' : 'Alamat Email'}
                     </label>
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="email@instansi.com"
+                      placeholder="name@company.com"
                       className="w-full px-3.5 py-2.5 bg-slate-50 border border-corporate-border rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-700"
                     />
                   </div>
@@ -196,57 +287,61 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 {/* Pillar Selection */}
                 <div>
                   <label className="block text-xs font-bold text-corporate-navy mb-1.5">
-                    Lini Layanan yang Diminati *
+                    {isEn ? 'Business Unit of Interest *' : 'Lini Bisnis yang Diminati *'}
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <button
                       type="button"
-                      onClick={() => setPillarInterest('culinary')}
-                      className={`py-2 px-3 rounded-lg text-xs font-bold border transition-all text-center ${
-                        pillarInterest === 'culinary'
-                          ? 'bg-sky-700 text-white border-sky-700'
-                          : 'bg-slate-50 text-slate-700 border-slate-200'
-                      }`}
-                    >
-                      Jasa Boga &amp; Katering
-                    </button>
-
-                    <button
-                      type="button"
                       onClick={() => setPillarInterest('snacks')}
-                      className={`py-2 px-3 rounded-lg text-xs font-bold border transition-all text-center ${
+                      className={`py-2.5 px-3 rounded-lg text-xs font-bold border transition-all text-center ${
                         pillarInterest === 'snacks'
                           ? 'bg-emerald-700 text-white border-emerald-700'
                           : 'bg-slate-50 text-slate-700 border-slate-200'
                       }`}
                     >
-                      Pempek Kizy &amp; Snacks
+                      01. Pempek Kizy (@pempek_kizy)
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setPillarInterest('culinary')}
+                      className={`py-2.5 px-3 rounded-lg text-xs font-bold border transition-all text-center ${
+                        pillarInterest === 'culinary'
+                          ? 'bg-sky-700 text-white border-sky-700'
+                          : 'bg-slate-50 text-slate-700 border-slate-200'
+                      }`}
+                    >
+                      02. Catering &amp; Snack
                     </button>
 
                     <button
                       type="button"
                       onClick={() => setPillarInterest('luxury')}
-                      className={`py-2 px-3 rounded-lg text-xs font-bold border transition-all text-center ${
+                      className={`py-2.5 px-3 rounded-lg text-xs font-bold border transition-all text-center ${
                         pillarInterest === 'luxury'
                           ? 'bg-slate-900 text-white border-slate-900'
                           : 'bg-slate-50 text-slate-700 border-slate-200'
                       }`}
                     >
-                      Portofolio Retail (Other)
+                      03. Curated Retail &amp; Hampers
                     </button>
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-corporate-navy mb-1.5">
-                    Detail Kebutuhan &amp; Catatan Acara / Pesanan *
+                    {isEn ? 'Inquiry Details / Partnership Scope *' : 'Detail Kebutuhan & Catatan Acara / Kemitraan *'}
                   </label>
                   <textarea
                     required
                     rows={4}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Sebutkan detail kebutuhan Anda (misal: estimasi jumlah porsi katering, tanggal acara, atau pengajuan kerja sama pasokan)..."
+                    placeholder={
+                      isEn
+                        ? 'Describe your requirements (e.g., B2B wholesale Pempek Kizy distribution, corporate catering portions & date, or executive hampers)...'
+                        : 'Sebutkan detail kebutuhan Anda (misal: kemitraan B2B/reseller Pempek Kizy, estimasi porsi katering & tanggal acara, atau pengadaan hampers)...'
+                    }
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-corporate-border rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-700"
                   />
                 </div>
@@ -256,7 +351,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   className="w-full py-3.5 rounded-xl bg-corporate-navy hover:bg-slate-800 text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center space-x-2"
                 >
                   <Send className="w-4 h-4" />
-                  <span>Kirim Formulir Pengajuan Resmi</span>
+                  <span>{isEn ? 'Submit Official Inquiry' : 'Kirim Formulir Pengajuan Resmi'}</span>
                 </button>
 
               </form>

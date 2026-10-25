@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 200" width="760" height="200">
+  <defs>
+    <linearGradient id="nkGrad1" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="nkGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="nkGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(18, 22)">
+    <rect x="10" y="92" width="26" height="54" rx="6" fill="url(#nkGrad2)"/>
+    <rect x="46" y="64" width="26" height="82" rx="6" fill="url(#nkGrad1)"/>
+    <rect x="82" y="34" width="26" height="112" rx="6" fill="#0f172a"/>
+    <path d="M8 76 C42 62, 74 36, 118 6 L100 4 L126 0 L124 26 L118 12 C78 46, 44 72, 12 84 Z" fill="url(#nkGold)"/>
+    <polygon points="126,0 102,4 120,24" fill="url(#nkGold)"/>
+    <circle cx="122" cy="122" r="22" fill="url(#nkGold)"/>
+    <path d="M122 107 L126.5 116.5 L137 118 L129.5 125 L131.5 135.5 L122 130.5 L112.5 135.5 L114.5 125 L107 118 L117.5 116.5 Z" fill="#ffffff"/>
+  </g>
+  <text x="174" y="86" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="900" fill="#0f172a">UMKM <tspan fill="#059669">NAIK KELAS</tspan></text>
+  <rect x="174" y="104" width="540" height="4" rx="2" fill="url(#nkGold)"/>
+  <text x="174" y="138" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="800" fill="#0284c7" letter-spacing="1.5">PROGRAM AKSELERASI &amp; INKUBASI</text>
+  <text x="174" y="166" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#64748b" letter-spacing="0.5">JAWA BARAT · KOTA BEKASI · INDONESIA</text>
+</svg>

@@ -13,23 +13,29 @@ import {
   initialProducts, 
   initialLeads 
 } from './data/companyData';
-import { CompanyProfile, InquiryLead, LeadStatus, ProductItem, PillarType } from './types';
+import { CompanyProfile, InquiryLead, LeadStatus, ProductItem, PillarType, LangType } from './types';
 import { MessageCircle } from 'lucide-react';
 
 export const App: React.FC = () => {
-  // LocalStorage-backed state with initial fallbacks
+  // Bilingual state ('id' | 'en') persisted in localStorage
+  const [lang, setLang] = useState<LangType>(() => {
+    const savedLang = localStorage.getItem('kizy_lang_pref');
+    return (savedLang === 'en' || savedLang === 'id') ? savedLang : 'id';
+  });
+
+  // LocalStorage-backed state migrated to v8_2 keys so latest v8.0 data loads immediately
   const [company, setCompany] = useState<CompanyProfile>(() => {
-    const saved = localStorage.getItem('kizy_company_profile_v2');
+    const saved = localStorage.getItem('kizy_company_profile_v8_2');
     return saved ? JSON.parse(saved) : initialCompanyProfile;
   });
 
   const [products, setProducts] = useState<ProductItem[]>(() => {
-    const saved = localStorage.getItem('kizy_products_v2');
+    const saved = localStorage.getItem('kizy_products_v8_2');
     return saved ? JSON.parse(saved) : initialProducts;
   });
 
   const [leads, setLeads] = useState<InquiryLead[]>(() => {
-    const saved = localStorage.getItem('kizy_leads_v2');
+    const saved = localStorage.getItem('kizy_leads_v8_2');
     return saved ? JSON.parse(saved) : initialLeads;
   });
 
@@ -40,20 +46,25 @@ export const App: React.FC = () => {
   const [prefilledPillar, setPrefilledPillar] = useState<PillarType>('culinary');
   const [prefilledService, setPrefilledService] = useState<string>('');
 
-  // Save changes to localStorage
+  // Save language & data changes to localStorage
   useEffect(() => {
-    localStorage.setItem('kizy_company_profile_v2', JSON.stringify(company));
+    localStorage.setItem('kizy_lang_pref', lang);
+    document.documentElement.lang = lang;
+  }, [lang]);
+
+  useEffect(() => {
+    localStorage.setItem('kizy_company_profile_v8_2', JSON.stringify(company));
   }, [company]);
 
   useEffect(() => {
-    localStorage.setItem('kizy_products_v2', JSON.stringify(products));
+    localStorage.setItem('kizy_products_v8_2', JSON.stringify(products));
   }, [products]);
 
   useEffect(() => {
-    localStorage.setItem('kizy_leads_v2', JSON.stringify(leads));
+    localStorage.setItem('kizy_leads_v8_2', JSON.stringify(leads));
   }, [leads]);
 
-  // Handle URL hash routing (#admin)
+  // Handle URL hash routing (#admin, #produk, #en, #id)
   useEffect(() => {
     const checkHash = () => {
       const hash = window.location.hash;
@@ -62,6 +73,10 @@ export const App: React.FC = () => {
         setCurrentView('admin');
       } else if (hash === '#produk' || path === '/produk') {
         setCurrentView('products');
+      } else if (hash === '#en') {
+        setLang('en');
+      } else if (hash === '#id') {
+        setLang('id');
       }
     };
     checkHash();
@@ -79,7 +94,7 @@ export const App: React.FC = () => {
   };
 
   const handleDeleteProduct = (id: string) => {
-    if (confirm('Hapus produk ini dari katalog?')) {
+    if (confirm(lang === 'en' ? 'Remove this item from the catalog?' : 'Hapus produk ini dari katalog?')) {
       setProducts(prev => prev.filter(p => p.id !== id));
     }
   };
@@ -100,7 +115,7 @@ export const App: React.FC = () => {
   };
 
   const handleDeleteLead = (id: string) => {
-    if (confirm('Hapus lead ini dari daftar?')) {
+    if (confirm(lang === 'en' ? 'Delete this lead from the list?' : 'Hapus lead ini dari daftar?')) {
       setLeads(prev => prev.filter(l => l.id !== id));
     }
   };
@@ -110,16 +125,16 @@ export const App: React.FC = () => {
     setCompany(initialCompanyProfile);
     setProducts(initialProducts);
     setLeads(initialLeads);
-    localStorage.removeItem('kizy_company_profile_v2');
-    localStorage.removeItem('kizy_products_v2');
-    localStorage.removeItem('kizy_leads_v2');
-    alert('Data berhasil direset ke pengaturan awal!');
+    localStorage.removeItem('kizy_company_profile_v8_2');
+    localStorage.removeItem('kizy_products_v8_2');
+    localStorage.removeItem('kizy_leads_v8_2');
+    alert(lang === 'en' ? 'Data successfully reset to v8.0 defaults!' : 'Data berhasil direset ke pengaturan awal v8.0!');
   };
 
   // Selecting a product from catalog for inquiry
   const handleSelectProductForInquiry = (product: ProductItem) => {
     setPrefilledPillar(product.pillarId);
-    setPrefilledService(product.name);
+    setPrefilledService(lang === 'en' && product.nameEn ? product.nameEn : product.name);
     setCurrentView('home');
     setTimeout(() => {
       document.getElementById('kontak')?.scrollIntoView({ behavior: 'smooth' });
@@ -132,6 +147,10 @@ export const App: React.FC = () => {
       document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
     }, 150);
   };
+
+  const waMessage = lang === 'en'
+    ? 'Hello%20PT%20Kizy%20Barakah%20Orbis,%20I%20would%20like%20to%20inquire%20about%20your%20products%20and%20corporate%20partnership%20services.'
+    : 'Halo%20PT%20Kizy%20Barakah%20Orbis,%20saya%20tertarik%20dengan%20layanan%20katering,%20Pempek%20Kizy,%20atau%20kemitraan%20perusahaan.';
 
   return (
     <div className="min-h-screen bg-corporate-canvas flex flex-col font-sans antialiased text-corporate-slate selection:bg-sky-700 selection:text-white">
@@ -155,9 +174,11 @@ export const App: React.FC = () => {
         />
       ) : (
         <>
-          {/* Corporate Header */}
+          {/* Corporate Header with Bilingual Switcher & Company Profile v7.0 Button */}
           <Navbar
             company={company}
+            lang={lang}
+            setLang={setLang}
             activeView={currentView === 'products' ? 'products' : 'home'}
             setActiveView={(v) => setCurrentView(v)}
             onNavigateSection={handleNavigateSection}
@@ -168,6 +189,7 @@ export const App: React.FC = () => {
               <ProductsView
                 company={company}
                 products={products}
+                lang={lang}
                 onBackToHome={() => setCurrentView('home')}
                 onSelectProductForInquiry={handleSelectProductForInquiry}
               />
@@ -176,6 +198,7 @@ export const App: React.FC = () => {
                 {/* Hero Section */}
                 <Hero
                   company={company}
+                  lang={lang}
                   onExploreDivisions={() => handleNavigateSection('lini-bisnis')}
                   onOpenProducts={() => {
                     setCurrentView('products');
@@ -183,12 +206,13 @@ export const App: React.FC = () => {
                   }}
                 />
 
-                {/* About & Values */}
-                <AboutSection company={company} />
+                {/* About, Founder & CEO Message, Vision/Mission & Legalities */}
+                <AboutSection company={company} lang={lang} />
 
-                {/* Helicopter View of Business Divisions */}
+                {/* Helicopter View of Business Divisions (2 Core F&B + 1 Complementary Retail) */}
                 <DivisionsSection
                   products={products}
+                  lang={lang}
                   onOpenProductsView={() => {
                     setCurrentView('products');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -198,6 +222,7 @@ export const App: React.FC = () => {
                 {/* Contact Section */}
                 <ContactSection
                   company={company}
+                  lang={lang}
                   prefilledPillar={prefilledPillar}
                   prefilledService={prefilledService}
                   onSubmitInquiry={handleAddLead}
@@ -209,6 +234,8 @@ export const App: React.FC = () => {
           {/* Corporate Footer */}
           <Footer
             company={company}
+            lang={lang}
+            setLang={setLang}
             onOpenAdmin={() => {
               window.location.hash = '#admin';
               setCurrentView('admin');
@@ -222,14 +249,16 @@ export const App: React.FC = () => {
 
           {/* Floating WhatsApp Quick Action Button */}
           <a
-            href={`https://wa.me/${company.contacts.whatsapp.replace(/[^0-9]/g, '')}?text=Halo%20PT%20Kizy%20Barakah%20Orbis,%20saya%20tertarik%20dengan%20layanan%20katering%20/%20produk%20perusahaan.`}
+            href={`https://wa.me/${company.contacts.whatsapp.replace(/[^0-9]/g, '')}?text=${waMessage}`}
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-6 right-6 z-40 px-4 py-3 bg-corporate-navy hover:bg-slate-800 text-white rounded-full shadow-2xl border border-slate-700 flex items-center space-x-2.5 transition-all hover:scale-105"
-            title="Chat WhatsApp Corporate"
+            title={lang === 'en' ? 'Official Corporate WhatsApp' : 'Chat WhatsApp Resmi'}
           >
             <MessageCircle className="w-5 h-5 text-emerald-400" />
-            <span className="text-xs font-bold hidden sm:inline">WhatsApp Resmi</span>
+            <span className="text-xs font-bold hidden sm:inline">
+              {lang === 'en' ? 'Official WhatsApp' : 'WhatsApp Resmi'}
+            </span>
           </a>
         </>
       )}

@@ -1,4 +1,5 @@
 export type PillarType = 'all' | 'culinary' | 'snacks' | 'luxury';
+export type LangType = 'id' | 'en';
 
 export interface KbliItem {
   code: string;
@@ -12,19 +13,27 @@ export interface ProductItem {
   id: string;
   pillarId: 'culinary' | 'snacks' | 'luxury';
   category: string;
+  categoryEn?: string;
   name: string;
+  nameEn?: string;
   tagline: string;
+  taglineEn?: string;
   description: string;
+  descriptionEn?: string;
   priceFormatted: string;
   priceNum: number;
   unit: string;
+  unitEn?: string;
   imageUrl: string;
   badges: string[];
+  badgesEn?: string[];
   inStock: boolean;
   featured: boolean;
   specifications: string[];
+  specificationsEn?: string[];
   halalCertified?: boolean;
   authenticityGuaranteed?: boolean;
+  externalUrl?: string;
 }
 
 export interface BusinessPillar {
@@ -61,18 +70,38 @@ export interface CompanyProfile {
   name: string;
   legalEntity: string;
   tagline: string;
+  taglineEn?: string;
   shortDesc: string;
+  shortDescEn?: string;
   vision: string;
+  visionEn?: string;
   mission: string[];
+  missionEn?: string[];
   values: {
     title: string;
+    titleEn?: string;
     description: string;
+    descriptionEn?: string;
   }[];
+  ceo?: {
+    name: string;
+    roleId: string;
+    roleEn: string;
+    photoUrl: string;
+    quoteId: string;
+    quoteEn: string;
+    greetingId: string;
+    greetingEn: string;
+    paragraphsId: string[];
+    paragraphsEn: string[];
+  };
   legalities: {
     nib: string;
+    standardCert?: string;
     skKemenkumham: string;
     npwp: string;
     halalBpjph: string;
+    halalDecree?: string;
     pirtIzin: string;
   };
   contacts: {
@@ -82,6 +111,12 @@ export interface CompanyProfile {
     whatsapp: string;
     phone: string;
     instagram: string;
+    instagramPempek?: string;
+    instagramPesenSamaSarah?: string;
+    websiteDomain?: string;
+    playStoreUrl?: string;
+    easyCateringWebUrl?: string;
+    companyProfileUrl?: string;
   };
 }
 
@@ -92,4 +127,3 @@ export interface PageMediaAssets {
   snacksDivisionImage: string;
   luxuryDivisionImage: string;
 }
-
